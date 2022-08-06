@@ -1,4 +1,4 @@
-const currentTime = moment().format("MMMM Do YYYY, HH:mm");
+const currentTime = moment().format("MMMM Do YYYY");
 var searchBtn = document.querySelector("#search-btn");
 var searchList = document.querySelector(".search-results");
 var currentWeather = document.querySelector("#current-weather");
@@ -30,8 +30,8 @@ var getCityInfo = function (lat, lon) {
             console.log(data);
             // Current Day info
             var currentDay = document.createElement("h3");
-            //currentDay.setAttribute("value", searchValue);
-            //currentDay.textContent = searchValue + currentTime;
+
+            currentDay.textContent = data.timezone + " (" + currentTime + ")" + data.current.weather[0].icon;
 
             var currentTemp = document.createElement("h2");
             currentTemp.textContent = "Temperature: " + data.current.temp + " celcius";
@@ -74,7 +74,7 @@ var createSearchList = function (searchValue) {
     cityBtn.setAttribute("value", searchValue);
     //event listener
 
-    cityBtn.textContent = searchValue + currentTime;
+    cityBtn.textContent = searchValue;
     searchList.appendChild(cityBtn);
 };
 
@@ -96,12 +96,15 @@ var createSearchList = function (searchValue) {
 // 5 day forecase is displayed in bottom right container
 
 searchBtn.addEventListener('click', function (event) {
-    event.preventDefault();
-    console.log("ive been clicked");
-    var searchValue = document.querySelector("#city-search").value;
-    console.log(searchValue);
-    getCoordinates(searchValue);
-    createSearchList(searchValue);
-
+    while (currentWeather.firstChild) {
+        // const element = document.querySelector("#current-weather")
+        event.preventDefault();
+        console.log("ive been clicked");
+        var searchValue = document.querySelector("#city-search").value;
+        console.log(searchValue);
+        getCoordinates(searchValue);
+        createSearchList(searchValue);
+        currentWeather.removeChild(currentWeather);
+    }
 
 });
