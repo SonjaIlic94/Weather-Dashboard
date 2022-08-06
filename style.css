@@ -23,3 +23,7 @@ styling for right hand side bottom container
 - dark blue bkg
 - icon
 - white text */
+
+.cloudy {
+    background-image: url("./assets/partly-cloudy.png");
+}

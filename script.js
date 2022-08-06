@@ -2,6 +2,13 @@ const currentTime = moment().format("MMMM Do YYYY");
 var searchBtn = document.querySelector("#search-btn");
 var searchList = document.querySelector(".search-results");
 var currentWeather = document.querySelector("#current-weather");
+
+var currentDay = document.createElement("h3");
+var icon = document.createElement("span");
+var currentTemp = document.createElement("h2");
+var currentWind = document.createElement("h2");
+var currentHumidity = document.createElement("h2");
+var currentUvi = document.createElement("h2");
 // API KEY
 //https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 // 26889146a0a820aa216ba000852bd2c5
@@ -16,33 +23,30 @@ var getCoordinates = function (searchValue) {
             cityArray.push(searchValue);
             localStorage.setItem("cityArrayLocalStorage", JSON.stringify(cityArray));
             console.log(data);
-            getCityInfo(data[0].lat, data[0].lon);
+            getCityInfo(data[0].name, data[0].lat, data[0].lon);
         });
     });
 }
 // when the search city is clicked run this again
 
-var getCityInfo = function (lat, lon) {
-    //format url
+var getCityInfo = function (name, lat, lon) {
     // make a request to the url
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&units=metric&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
         response.json().then(function (data) {
             console.log(data);
             // Current Day info
-            var currentDay = document.createElement("h3");
+            var icon = data.clouds;
+            if (icon <= 50) {
+                icon.className = "clear";
+            }
+            else {
+                icon.className = "cloudy";
+            };
 
-            currentDay.textContent = data.timezone + " (" + currentTime + ")" + data.current.weather[0].icon;
-
-            var currentTemp = document.createElement("h2");
+            currentDay.textContent = name + " (" + currentTime + ")" + icon;
             currentTemp.textContent = "Temperature: " + data.current.temp + " celcius";
-
-            var currentWind = document.createElement("h2");
             currentWind.textContent = "Wind Speed: " + data.current.wind_speed + "KM/H";
-
-            var currentHumidity = document.createElement("h2");
             currentHumidity.textContent = "Humidity: " + data.current.humidity + "%";
-
-            var currentUvi = document.createElement("h2");
             currentUvi.setAttribute("id", "uvi-color");
             currentUvi.textContent = "UV Index: " + data.current.uvi;
 
@@ -67,13 +71,11 @@ var getCityInfo = function (lat, lon) {
 };
 
 var createSearchList = function (searchValue) {
-
     var cityBtn = document.createElement("button");
     cityBtn.className = "city-btn";
     cityBtn.setAttribute("type", "submit");
     cityBtn.setAttribute("value", searchValue);
     //event listener
-
     cityBtn.textContent = searchValue;
     searchList.appendChild(cityBtn);
 };
@@ -96,7 +98,7 @@ var createSearchList = function (searchValue) {
 // 5 day forecase is displayed in bottom right container
 
 searchBtn.addEventListener('click', function (event) {
-    while (currentWeather.firstChild) {
+    if (currentWeather.firstChild) {
         // const element = document.querySelector("#current-weather")
         event.preventDefault();
         console.log("ive been clicked");
@@ -104,7 +106,7 @@ searchBtn.addEventListener('click', function (event) {
         console.log(searchValue);
         getCoordinates(searchValue);
         createSearchList(searchValue);
-        currentWeather.removeChild(currentWeather);
+        currentWeather.removeChild(currentDay, currentTemp, currentWind, currentHumidity, currentUvi);
     }
 
 });
