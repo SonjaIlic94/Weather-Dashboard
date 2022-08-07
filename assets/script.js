@@ -175,7 +175,6 @@ searchBtn.addEventListener('click', function (event) {
             while (currentWeather.firstChild) {
                 currentWeather.removeChild(currentWeather.firstChild);
             }
-            //currentWeather.removeChild(currentDay, currentTemp, currentWind, currentHumidity, currentUvi, forecastTitle);
             createSearchList(searchValue);
         }
     }

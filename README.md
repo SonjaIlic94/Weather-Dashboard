@@ -13,3 +13,4 @@ API: https://openweathermap.org/api/one-call-api
 
 ## Link to the site
 https://sonjailic94.github.io/Weather-Dashboard/
+<img width="1137" alt="weatherapp" src="https://user-images.githubusercontent.com/104938407/183300520-8804ec65-f9c5-4704-af8b-4cdececfed4b.png">
