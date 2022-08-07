@@ -29,6 +29,13 @@
     padding: 10px;
 }
 
+.city-btn {
+    background-color: rgb(52, 91, 207);
+    color: white;
+    margin-right: 10px;
+}
+
+
 /*
 styling for left hand side form 
 - blue search button

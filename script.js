@@ -149,8 +149,15 @@ var loadBtns = function () {
         cityBtn.className = "city-btn";
         cityBtn.setAttribute("type", "submit");
         cityBtn.setAttribute("value", cityCheck[i]);
+        cityBtn.setAttribute("id", "city" + i)
         cityBtn.textContent = cityCheck[i];
         searchList.appendChild(cityBtn);
+
+        cityBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            getCoordinates(document.getElementById("city" + i).value);
+        });
+
     }
 }
 
