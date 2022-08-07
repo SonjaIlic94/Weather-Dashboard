@@ -73,8 +73,11 @@ var getCityInfo = function (name, lat, lon) {
             currentWeather.append(currentWind);
             currentWeather.append(currentHumidity);
             currentWeather.append(currentUvi);
-
+            var forecastTitle = document.createElement("h1");
+            forecastTitle.textContent = "5 Day Forecast";
+            currentWeather.append(forecastTitle);
             weatherForecast.innerHTML = "";
+
             // Generate Cards
             for (let i = 1; i < data.daily.length - 2; i++) {
 
@@ -91,9 +94,10 @@ var getCityInfo = function (name, lat, lon) {
                 var cardHolder = document.createElement('div');
                 cardHolder.setAttribute('class', 'post block bc2');
                 cardHolder.setAttribute('id', 'card-holder');
+
                 cardHolder.innerHTML = `
-            <h1 class="forecast-title">5 Day Forecast</h1>
-            <div class="card" style="width: 18rem;">
+            
+            <div class="card" style="width: 10rem;">
                 <div class="card-body">         
                     <h5 class="card-title">${forecastDay.textContent}</h5>
                      <img src="${"http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png"}"/>              
@@ -174,8 +178,10 @@ searchBtn.addEventListener('click', function (event) {
         console.log("ive been clicked");
         var searchValue = document.querySelector("#city-search").value;
         console.log(weatherForecast.firstChild);
-        createSearchList(searchValue);
-        currentWeather.removeChild(currentDay, currentTemp, currentWind, currentHumidity, currentUvi);
+        if (!(searchValue.trim().length == 0)) {
+            createSearchList(searchValue);
+            currentWeather.removeChild(currentDay, currentTemp, currentWind, currentHumidity, currentUvi);
+        }
         //weatherForecast.removeChild(card);
     }
 });
