@@ -172,7 +172,10 @@ searchBtn.addEventListener('click', function (event) {
         event.preventDefault();
         var searchValue = document.querySelector("#city-search").value;
         if (!(searchValue.trim().length == 0)) {
-            currentWeather.removeChild(currentDay, currentTemp, currentWind, currentHumidity, currentUvi, forecastTitle);
+            while (currentWeather.firstChild) {
+                currentWeather.removeChild(currentWeather.firstChild);
+            }
+            //currentWeather.removeChild(currentDay, currentTemp, currentWind, currentHumidity, currentUvi, forecastTitle);
             createSearchList(searchValue);
         }
     }

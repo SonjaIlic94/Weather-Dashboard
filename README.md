@@ -12,3 +12,4 @@ Bootstrap
 API: https://openweathermap.org/api/one-call-api
 
 ## Link to the site
+https://sonjailic94.github.io/Weather-Dashboard/
