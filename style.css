@@ -1,9 +1,19 @@
-/* styling for jumboton
+/*styling for jumboton
 - skinny
 - full width
 - color
-- gradient
+- gradient*/
 
+.jumbotron {
+    background-image: linear-gradient(to right, rgb(47, 13, 183), rgb(167, 188, 210));
+    color: white;
+    text-align: center;
+}
+
+;
+
+
+/*
 styling for left hand side form 
 - blue search button
 
@@ -17,13 +27,9 @@ styling for right hand side top container
 - otherwise, plain
 
 
-styling for right hand side bottom container 
+/*styling for right hand side bottom container 
 - cards
 - padding 
 - dark blue bkg
 - icon
 - white text */
-
-.cloudy {
-    background-image: url("./assets/partly-cloudy.png");
-}

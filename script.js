@@ -1,6 +1,9 @@
 // moment.js for current day
 const currentTime = moment().format("MMMM Do YYYY");
 
+//buttons
+var cityBtn = document.createElement("button");
+
 // html div retreival
 var searchBtn = document.querySelector("#search-btn");
 var searchList = document.querySelector(".search-results");
@@ -26,6 +29,8 @@ var forecastHumidity = document.createElement("h4");
 
 //key = city array. LocalStorage
 var cityArray = JSON.parse(localStorage.getItem("cityArrayLocalStorage")) || [];
+
+
 
 // get coordinates
 var getCoordinates = function (searchValue) {
@@ -69,6 +74,7 @@ var getCityInfo = function (name, lat, lon) {
             currentWeather.append(currentHumidity);
             currentWeather.append(currentUvi);
 
+            weatherForecast.innerHTML = "";
             // Generate Cards
             for (let i = 1; i < data.daily.length - 2; i++) {
 
@@ -111,35 +117,67 @@ var createSearchList = function (searchValue) {
     cityBtn.className = "city-btn";
     cityBtn.setAttribute("type", "submit");
     cityBtn.setAttribute("value", searchValue);
-    //event listener
     cityBtn.textContent = searchValue;
-    searchList.appendChild(cityBtn);
+
+    var retrievedCities = localStorage.getItem("cityArrayLocalStorage")
+    var cityCheck = JSON.parse(retrievedCities);
+    for (i = 0; i < cityArray.length; i++) {
+        if (cityCheck[i] == cityBtn.textContent) {
+            cityBtn.setAttribute("id", "already-exists");
+            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchValue}&limit=5&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
+                response.json().then(function (data) {
+                    getCityInfo(data[0].name, data[0].lat, data[0].lon);
+                });
+            });
+        }
+    }
+    if (!(cityBtn.id == "already-exists")) {
+        searchList.appendChild(cityBtn);
+        getCoordinates(searchValue);
+    }
 };
 
-// var createSearchList = function (searchValue) {
-//     i += 1
-//     var cityBtn = document.createElement("button");
+var loadBtns = function () {
+    var retrievedCities = localStorage.getItem("cityArrayLocalStorage")
+    var cityCheck = JSON.parse(retrievedCities);
+    for (i = 0; i < cityArray.length; i++) {
+        var cityBtn = document.createElement("button");
+        cityBtn.className = "city-btn";
+        cityBtn.setAttribute("type", "submit");
+        cityBtn.setAttribute("value", cityCheck[i]);
+        cityBtn.textContent = cityCheck[i];
+        searchList.appendChild(cityBtn);
+    }
+}
+
+// var searchListClick = function (searchValue) {
+//     i += 1;
 //     cityBtn.className = "city-btn";
-//     cityBtn.setAttribute("type", "submit");
 //     cityBtn.setAttribute("value", searchValue);
 //     cityBtn.setAttribute("id", "btnid" + i);
-//     cityBtn.textContent = searchValue;
-//     searchList.appendChild(cityBtn);
-// document.getElementById("btnid" + i).addEventListener("click", )
+//     document.getElementById("btnid" + i).addEventListener("click", function (event) {
+//         if (currentWeather.firstChild, weatherForecast.firstChild) {
+//             const element = document.querySelector("#current-weather")
+//             const card = document.getElementById("#card-holder");
+//             currentWeather.removeChild(currentDay, currentTemp, currentWind, currentHumidity, currentUvi);
+//             weatherForecast.removeChild(card);
+//             getCityInfo();
+//         }
+//     })
 // };
-
 
 searchBtn.addEventListener('click', function (event) {
     if (currentWeather.firstChild, weatherForecast.firstChild) {
         const element = document.querySelector("#current-weather")
-        const card = document.getElementById("#card-holder");
+        //const card = document.getElementById("#card-holder");
         event.preventDefault();
         console.log("ive been clicked");
         var searchValue = document.querySelector("#city-search").value;
-        console.log(searchValue);
-        getCoordinates(searchValue);
+        console.log(weatherForecast.firstChild);
         createSearchList(searchValue);
         currentWeather.removeChild(currentDay, currentTemp, currentWind, currentHumidity, currentUvi);
-        weatherForecast.removeChild(card);
+        //weatherForecast.removeChild(card);
     }
 });
+
+loadBtns();
