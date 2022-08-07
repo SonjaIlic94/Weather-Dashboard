@@ -1,9 +1,3 @@
-/*styling for jumboton
-- skinny
-- full width
-- color
-- gradient*/
-
 .jumbotron {
     background-image: linear-gradient(to right, rgb(47, 13, 183), rgb(167, 188, 210));
     color: white;
@@ -21,7 +15,6 @@
     color: white;
     font-size: 15px;
     border-color: rgb(220, 213, 251);
-
 }
 
 .card {
@@ -35,24 +28,7 @@
     margin-right: 10px;
 }
 
-
-/*
-styling for left hand side form 
-- blue search button
-
-styling for left hand side citys from LS 
-- they are button 
-- gray
-- smol
-
-styling for right hand side top container 
-- icon ( mebbbe it come from th api? )
-- otherwise, plain
-
-
-/*styling for right hand side bottom container 
-- cards
-- padding 
-- dark blue bkg
-- icon
-- white text */
+#uvi-color {
+    border-radius: 10px;
+    width: 36.5%;
+}
