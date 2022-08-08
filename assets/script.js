@@ -129,7 +129,7 @@ var createSearchList = function (searchValue) {
     for (let i = 0; i < cityArray.length; i++) {
         if (cityCheck[i] == cityBtn.textContent) {
             cityBtn.setAttribute("id", "already-exists");
-            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchValue}&limit=5&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
+            fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${searchValue}&limit=5&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
                 response.json().then(function (data) {
                     getCityInfo(data[0].name, data[0].lat, data[0].lon);
                 });
@@ -157,7 +157,7 @@ var loadBtns = function () {
 
         cityBtn.addEventListener('click', function (event) {
             event.preventDefault();
-            fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${(document.getElementById("city" + i).value)}&limit=5&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
+            fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${(document.getElementById("city" + i).value)}&limit=5&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
                 response.json().then(function (data) {
                     getCityInfo(data[0].name, data[0].lat, data[0].lon);
                 });
