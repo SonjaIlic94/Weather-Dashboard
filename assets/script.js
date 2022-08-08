@@ -33,7 +33,7 @@ var cityArray = JSON.parse(localStorage.getItem("cityArrayLocalStorage")) || [];
 
 // get coordinates
 var getCoordinates = function (searchValue) {
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${searchValue}&limit=5&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${searchValue}&limit=5&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
         response.json().then(function (data) {
             cityArray.push(searchValue);
             localStorage.setItem("cityArrayLocalStorage", JSON.stringify(cityArray));
@@ -48,7 +48,7 @@ var getCityInfo = function (name, lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&units=metric&appid=26889146a0a820aa216ba000852bd2c5`).then(function (response) {
         response.json().then(function (data) {
             // Current Day info
-            icon.src = "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
+            icon.src = "https://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png";
             currentDay.textContent = name + " (" + currentTime + ")";
             currentTemp.textContent = "Temperature: " + data.current.temp + " celcius";
             currentWind.textContent = "Wind Speed: " + data.current.wind_speed + "KM/H";
@@ -79,7 +79,7 @@ var getCityInfo = function (name, lat, lon) {
             // Generate Cards
             for (let i = 1; i < data.daily.length - 2; i++) {
 
-                forecastIcon.src = "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png";
+                forecastIcon.src = "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png";
 
                 const forecastDate = new Date(data.daily[i].dt * 1000);
                 forecastDay.textContent = forecastDate.getDate() + "/" + (forecastDate.getMonth() + 1) + "/" + forecastDate.getFullYear();
